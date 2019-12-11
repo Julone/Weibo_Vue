@@ -1,15 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from './login'
-import home from './home'
-import user from './user'
-import error from './error'
-var routes = new Set([home,login,user,error])
-
 
 Vue.use(Router)
-export default new Router({
+const router =  new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
-  routes: routes
+  base: process.env.BASE_URL
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.content){
+    let head = document.getElementsByTagName('head');
+    let meta = document.createElement('meta');
+    meta.content = to.meta.content;
+    head[0].appendChild(meta)
+  }
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }else{
+    document.title = 'Phantom'
+  }
+  next()
+});
+
+export default router;

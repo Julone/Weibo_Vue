@@ -1,4 +1,8 @@
 import request from './../request'
+export * from './follow';
+export * from './menu';
+import {Encrypt} from './../../utils/Aes'
+
 export function getUserInfo({user_id} = {}){
     return request({
         url:'/api/user/info/get',
@@ -8,11 +12,21 @@ export function getUserInfo({user_id} = {}){
         }
     })
 }
-export function changeBasicUserInfo({user_name,user_icon,user_sex,user_birth,user_introduce}){
+export function changeBasicUserInfo({user_name,user_icon,user_sex,user_birth,user_introduce,user_locate}){
     return request({
         url:'/api/user/setInfo',
         method:'post',
-        data:{user_name,user_icon,user_sex,user_birth,user_introduce},
+        data:{user_name,user_icon,user_sex,user_birth,user_introduce,user_locate},
+    })
+}
+export function changeUserPassword({ old_pass,new_pass }){
+    return request({
+        url:'/api/user/setPassword',
+        method:'post',
+        data:{ old_pass:Encrypt(old_pass),new_pass:Encrypt(new_pass) },
+        headers:{
+            showSuccess:true
+        }
     })
 }
 
@@ -40,21 +54,4 @@ export function upload_head_icon({data}){
         method:'post'
     })
 }
-export function set_follow_user({follow_id}){
-    return request({
-        url:'/api/user/follow/set',
-        data:{
-            follow_id
-        },
-        method:'post'
-    })
-}
-export function unset_follow_user({follow_id}){
-    return request({
-        url:'/api/user/follow/unset',
-        data:{
-            follow_id
-        },
-        method:'post'
-    })
-}
+

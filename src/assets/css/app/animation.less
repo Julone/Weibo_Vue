@@ -1,0 +1,220 @@
+.fade_column(20);
+
+.fade_column(@n, @i: 0) when (@i =< @n) {
+  .ani@{i} {
+    opacity: 0;
+    animation: fadein 1s ease 1;
+    animation-fill-mode: forwards;
+    animation-delay: (@i * 0.1s);
+  }
+
+  .fade_column(@n, (@i + 1));
+}
+
+.flip-list-noEnter-enter-active,.flip-list-leave-active {
+	transition: all 1s;
+}
+.flip-list-noEnter-move {
+	transition: all 1s;
+}
+.flip-list-noEnter-leave-to {
+	opacity:0;
+	transform: translateY(50px);
+}
+
+.flip-list-noEnter-leave-active {
+	position:absolute;
+}
+
+.fadeTop_column(20);
+
+.fadeTop_column(@n, @i: 0) when (@i =< @n) {
+  .fadeTop@{i} {
+    opacity: 0;
+    animation: fadeTop 1s ease 1;
+    animation-fill-mode: forwards;
+    animation-delay: (@i * 0.1s);
+  }
+
+  .fadeTop_column(@n, (@i + 1));
+}
+
+.reply_list-enter-active {
+  animation: fadein 1s ease;
+}
+.reply_list-move{
+  transition: all ease 1s;
+}
+.reply_list-leave-active {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  // animation: fadeTop 1s ease reverse;
+}
+
+.fromTop-enter-active {
+  animation: fadeTop .5s ease;
+}
+///////>>>>>>>>>>>>>>>>>>>
+.fromTop-leave-active {
+  animation: fadeTop .5s ease reverse;
+}
+.fromBottom-enter-active {
+  animation: fadeBottom .5s ease;
+}
+
+.fromBottom-leave-active {
+  animation: fadeBottom .5s ease reverse;
+}
+@keyframes fadeTop {
+  from {
+    transform: translate(0, -3rem) scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeBottom {
+  from {
+    transform: translate(0, 3rem) scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+//////////////>>>>>>>>>>>
+.fadeLeft_column(20);
+
+.fadeLeft_column(@n, @i: 0) when (@i =< @n) {
+  .fadeLeft@{i} {
+    opacity: 0;
+    animation: fadeLeft 1s ease 1;
+    animation-fill-mode: forwards;
+    animation-delay: (@i * 0.1s);
+  }
+
+  .fadeLeft_column(@n, (@i + 1));
+}
+
+.flip_column(10);
+
+.flip_column(@n, @i: 0) when (@i =< @n) {
+  .flip@{i} {
+    opacity: 0 !important;
+    animation: flip 1s ease 1;
+    animation-fill-mode: forwards;
+    animation-delay: (@i * 0.4s);
+  }
+
+  .flip_column(@n, (@i + 1));
+}
+
+@keyframes fadein {
+  from {
+    transform: translate(0, 3rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes pageTitleLine {
+
+  0%,
+  25% {
+    transform: translate(-64px, -14px);
+  }
+
+  75%,
+  to {
+    transform: translate(376px, -14px)
+  }
+}
+
+
+
+@keyframes fadeLeft {
+  from {
+    transform: translate(3rem, 0rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes flip {
+  from {
+    transform: scale3d(.4, .4, .4) translate3d(0, 3rem, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.flip {
+  opacity: 0 !important;
+  animation: flip 1s ease 1 !important;
+  animation-fill-mode: forwards !important;
+}
+
+.rotate {
+  display: inline-block;
+  animation: rotate 1s linear infinite !important;
+}
+
+.rotate_once {
+  display: inline-block;
+  animation: rotate 1s linear 1 none reverse !important;
+}
+
+//VUE 切换
+.fadeApp-enter-active {
+  transition: all .8s linear
+}
+
+.fadeApp-leave-active {
+  transition: all .3s linear
+}
+
+.fadeApp-enter,
+.fadeApp-leave-to {
+  opacity: 0;
+  // transform: translate(0,-100px);
+  filter: grayscale(1) // clip-path: polygon(0 0,100% 0,100% 30%,0 100%);
+    // transform:rotate(100deg)
+}
+
+.fadeApp-enter-to,
+.fadeApp-leave {
+  opacity: 1;
+  // transform: translate(1000px,0);
+  // transform: scale(1) translate(0,0);
+  // clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+
+}

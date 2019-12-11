@@ -5,7 +5,7 @@ export function trans({q}){
     var key = 'SMoUpRCs1MbLhzXlNZxd';
     var salt = (new Date).getTime();
     var query = q;
-    var from = 'en';
+    var from = 'auto';
     var to = 'zh';
     var str1 = appid + query + salt +key;
     var sign = MD5(str1);
@@ -19,7 +19,11 @@ export function trans({q}){
             salt:salt,
             sign:sign
         },
-        method:'post'
+        method:'post',
+        headers:{
+            showError:false,
+            showProgress:false
+        }
     })
     
 }

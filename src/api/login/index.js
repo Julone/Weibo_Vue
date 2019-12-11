@@ -1,6 +1,6 @@
 import request from './../request'
 
-export function login ({ usermail,userpass,captcha }){
+export function login ({ usermail,userpass,captcha } ={}){
     return request({
         method:'post',
         url:'/api/verify/login',
@@ -12,7 +12,7 @@ export function login ({ usermail,userpass,captcha }){
     })
 }
 
-export function sendCap({usermail}){
+export function sendCap({usermail} = {}){
     return request({
         method:'post',
         url:'/api/verify/sendEmailCap',
@@ -22,7 +22,7 @@ export function sendCap({usermail}){
     })
 }
 
-export function register({usermail,code,userpass,username}){
+export function register({usermail,code,userpass,username} ={}){
     return request({
         method:'post',
         url:'/api/verify/register',
@@ -31,6 +31,18 @@ export function register({usermail,code,userpass,username}){
             usermail,
             userpass,
             username
+        }
+    })
+}
+export function checkUserName({user_name = ''} = {}){
+    return request({
+        method:'post',
+        url:'/api/verify/checkUserName',
+        data:{
+            user_name
+        },
+        headers:{
+            showError:false
         }
     })
 }

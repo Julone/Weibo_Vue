@@ -1,5 +1,6 @@
 import request from './../request'
-
+export * from './topic'
+export * from './favor'
 export function get_feed({page_id=1,page_count = 6,req_time} = {}){
     return request({
         method:'get',
@@ -11,13 +12,28 @@ export function get_feed({page_id=1,page_count = 6,req_time} = {}){
         }
     })
 }
+export function test_word({say_text}){
+    return request({
+        method:'post',
+        url:'/api/feed/test_word',
+        data:{
+            say_text
+        },
+        headers:{
+            showProgress:false
+        }
+    })
+}
 
-export function send_feed({say_text,say_img,upload_imgs}){
+export function send_feed({say_text,say_img}){
     return request({
         method:'post',
         url:'/api/feed/send',
         data:{
-            say_text,say_img,upload_imgs
+            say_text,say_img
+        },
+        headers:{
+            showSuccess:true
         }
     })
 }
@@ -40,11 +56,11 @@ export function get_comment({say_id,page_id,page_count}){
     })
 }
 
-export function send_comment({say_id,to_user_id,reply_text}){
+export function send_comment({say_id,to_user_id,reply_text,origin_id = "",parent_id ="",type="com"}){
     return request({
         method:'post',
         url:'/api/feed/comment',
-        data:{say_id,to_user_id,reply_text}
+        data:{say_id,to_user_id,reply_text,origin_id,parent_id,type}
     })
 }
 

@@ -1,14 +1,23 @@
-<template lang="">
-    <div>
-        <el-avatar :size="size">
-            <el-image :src="truesrc" @error="jj">
-                <div slot="error" class="image-slot" style="font-size:4rem">
-                    <i class="el-icon-user"></i>
-                </div>
-            </el-image>
-        </el-avatar>
-    </div>
+<template>
+    <el-avatar :size="size" circle>
+        <el-image :src="truesrc" @error="jj">
+            <div slot="error" class="image-slot" style="display:flex;align-items:center;">
+                <!-- <i class="el-icon-user"></i> -->
+                <img src="/img/default_user.jpg" width="100%" alt="">
+            </div>
+        </el-image>
+    </el-avatar>
 </template>
+<style lang="less" scoped>
+    .el-avatar{
+        border:1px solid #eee;
+        background:white;
+    }
+    .el-image__inner{
+        overflow: hidden;
+    }
+    
+</style>
 <script>
 export default {
     props:{
@@ -26,11 +35,11 @@ export default {
         }
     },
     created(){
-        console.log(this.src);
+       
     },
     methods:{
         jj(){
-            console.log(arguments);
+          
         }
     }
 }

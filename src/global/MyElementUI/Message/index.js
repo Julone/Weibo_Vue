@@ -1,5 +1,5 @@
 import ElementUI from 'element-ui'
-import './Message.less'
+import './Message.less';
 import _ from 'underscore'
 var eMessage = ElementUI.Message;
 var myToast = function (msg, type='info') {

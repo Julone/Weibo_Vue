@@ -1,41 +1,28 @@
-// import {serialize} from '@/util/util'
-// import {getStore} from '../util/store'
 import NProgress from 'nprogress' // progress bar
-// import errorCode from '@/const/errorCode'
-// import router from "@/router/index"
-import jMessage from './../global/MyElementUI/Message'
+import jMessage from '@/global/MyElementUI/Message'
 import 'nprogress/nprogress.css'
 import axios from "axios"
 import store from "@/store";
 axios.defaults.timeout = 30000
-// 返回其他状态吗
 axios.defaults.validateStatus = function (status) {
-  return status >= 200 && status <= 500 // 默认的
+  return status >= 200 && status <= 500
 }
-// 跨域请求，允许保存cookie
 axios.defaults.withCredentials = true
-// NProgress Configuration
 NProgress.configure({
-  showSpinner: false,
+  showSpinner: true,
   ease:'ease',
   speed:500
 })
 
 // HTTPrequest拦截
 axios.interceptors.request.use(config => {
-  NProgress.start() // start progress bar
-  // const isToken = (config.headers || {}).isToken === false
- 
-let token = store.getters.token;
-if (token) {
-  config.headers['Authorization'] = token// token
-}
-
-  // headers中配置serialize为true开启序列化
-//   if (config.methods === 'post' && config.headers.serialize) {
-//     config.data = serialize(config.data)
-//     delete config.data.serialize
-//   }
+  NProgress.remove();
+  let { showProgress = true} = config.headers;
+  showProgress && NProgress.start() // start progress bar
+  let token = store.getters.token;
+  if (token) {
+    config.headers['Authorization'] = token // token
+  }
   return config
 }, error => {
   return Promise.reject(error)
@@ -43,20 +30,27 @@ if (token) {
 
 
 // HTTPresponse拦截
-axios.interceptors.response.use(res => {
+axios.interceptors.response.use(async res => {
   NProgress.done()
   const status = Number(res.status) || 200
   const message = res.data.msg || '服务器错误，请稍候重试';
   const code = res.data.code;
-  if(code != 200 ){
+  let {showSuccess = false,showError = true} = res.config.headers;
+  if(code == 200 && showSuccess){
+    jMessage.success(message);
+  }
+  if(code != 200 && showError){
     jMessage.closeAll();
     jMessage.error(message);
   }
   if (status === 403) {
-    store.dispatch('TokenExit');
-    return;
+    return store.dispatch('reLogin');
   }
-  return res
+  return new Promise(resolve =>{
+    setTimeout(()=>{
+      resolve(res)
+    },500)
+  })  
 }, error => {
   NProgress.done()
   return Promise.reject(new Error(error))

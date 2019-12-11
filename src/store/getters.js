@@ -13,5 +13,12 @@ export default {
     },
     user_name:state => {
         return state.user.user_info.user_name
-    }
+    },
+    winWidth:state =>{
+      return state.winWidth;
+    },
+    winHeight:state =>{
+      return state.winHeight
+    },
+    userMenuList:state => state.userMenu.filter(el=>console.log(el))
   }

@@ -1,12 +1,57 @@
-*{
+* {
     padding: 0;
     margin: 0;
     outline: none;
 }
-ul{
-    list-style: none;
+::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 8px !important;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 8px;
 }
-.disable{
+::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 100px !important;
+    background: rgb(221,222,224) !important;
+}
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+}
+
+ol, ul, dl{
+    list-style: none;
+    margin-bottom: 0 !important;
+}
+
+.disable {
     pointer-events: none;
     filter: grayscale(1);
+}
+
+#nprogress {
+    .peg {
+        box-shadow: 0 0 10px #ff5400, 0 0 5px #ff8d15 !important;
+    }
+
+    .bar {
+        background: #E8C064 !important;
+    }
+}
+
+.el-form-item.is-success {
+    @successColor: #67C23A;
+
+    .el-input__inner,
+    .el-input__validateIcon::before {
+        border-color: @successColor  !important;
+    }
+}
+
+.el-form-item.is-error {
+    @successColor: #f09191 !important;
+
+    .el-input__inner,
+    .el-input__validateIcon::before {
+        border-color: @successColor  !important;
+    }
+
+    .el-form-item__error {
+        color: @successColor;
+    }
 }

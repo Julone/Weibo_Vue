@@ -1,8 +1,10 @@
 <template>
     <div class="login">
-        <img src="@/assets/img/logo-text.svg" @click="resetForm('ruleForm')" width="100%" alt="">
+        <img src="@/assets/img/logo-text-static.svg" @click="resetForm('ruleForm')" width="100%" alt="">
         <el-form :model="formData" label-position="left" label-width="0px" hide-required-asterisk status-icon
             :rules="rules" ref="ruleForm" :class="{disable:!agreement}">
+            <input type="text" no_input/>
+            <input type="password" no_input/>
             <el-form-item prop="usermail">
                 <el-input clearable v-model="formData.usermail" autocomplete="off"
                  placeholder="请输入注册邮箱">
@@ -16,7 +18,7 @@
                     </el-input>
                     <el-divider direction="vertical"></el-divider>
                     <div class="img">
-                        <el-button @click="sendCap" type="primary" plain style="width:100%">
+                        <el-button round @click="sendCap" :disabled="!formData.usermail" type="primary" plain style="width:100%">
                             <span v-if="!capLock"> 发送邮箱验证码 </span>
                             <span v-else>{{timeCount}}秒后可重发</span>
                         </el-button>
@@ -38,7 +40,7 @@
 
             <el-form-item align="center">
                 <div class="login_btn" style="width:100%">
-                    <el-button plain type="primary" @click="submitForm('ruleForm')">立即注册
+                    <el-button round plain type="primary" @click="submitForm('ruleForm')">立即注册
                     </el-button>
                 </div>
                 <el-link :underline="false" @click="$router.push({name:'login'})">已有账号?前往登录</el-link>
@@ -92,7 +94,7 @@
                         trigger: 'blur'
                     }]
                 },
-                capLock: '',
+                capLock: null,
                 timeCount: 60,
             }
         },
@@ -103,7 +105,6 @@
                     this.$message({message:'请先输入注册邮箱',type:'error'})
                     return;
                 }
-
                 if(this.capLock) return;
                 this.capLock = setInterval(() => {
                     this.timeCount--;
@@ -112,8 +113,7 @@
                         clearInterval(this.capLock)
                         this.capLock = null;
                     }
-                }, 100)
-            
+                }, 1000)
                 sendCap({
                     usermail: this.formData.usermail
                 }).then(r => {

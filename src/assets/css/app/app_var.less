@@ -5,5 +5,14 @@
 }
 .pointer{
     cursor: pointer;
+    user-select: none;
 }
-@nav_height: 44px;
+@import './font.less';
+@nav_height: 50px;
+@home_container_width:100vw;
+@home_wrapper_width:600px;
+@home_width:600px;
+@home_max_width: @home_width * 0.96;
+@scroller_center_height: calc(100vh - @nav_height - 15px);
+@a_active_color: #E8C064;
+@primary_color:@a_active_color;

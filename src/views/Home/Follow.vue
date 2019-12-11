@@ -1,32 +1,42 @@
 <template>
 <div class="container">
-    <scroll class="wrapper" ref="container" style="height:90vh;overflow:hidden" :data="feed_list" listenScroll
+    <scroll class="wrapper" ref="container" :data="feed_list" listenScroll
         @pullup="loadMore" :pullup="!noMore" @scroll="scroll" @pulldown="refresh">
         <div class="wrapper2">
-            <span style="position: absolute; top: -25px;" align="center">松手下拉数据</span>
-            <div class="body">
-                 <UserWB :feed_list="feed_list" :noData="noData" :noMore="noMore"/>
-            </div>
+               <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="width:60%">
+                        <jDivider style="float:left">
+                            关注中心
+                        </jDivider>
+                    </div>
+                    <div style="display:flex;align-items:center">
+                        <searchBar style="flex:none"></searchBar>
+                    </div>
+                </div>
+            <feedList :feed_list="feed_list" :noData="noData" :noMore="noMore" label='暂无关注人'>
+                <el-link :underline='false' @click.native="$router.push('/')" type='warning'>前往主页发现</el-link>
+            </feedList>
         </div>
     </scroll>
-    <el-button class="getTop" v-show="scrollTop <-100" @click="getTop">gettopo</el-button>
 </div>
 </template>
 <style lang="less" scoped>
-
-    .body {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-
-        .feed-list {
-            width: 100%;
-        }
-    }
     .getTop{
         position: fixed;
         bottom: 20%;right: 5%;
+    }
+    .container {
+        max-width: @home_max_width;
+        margin: 0 auto;
+        padding: 5px;
+         height: @scroller_center_height;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+     .wrapper{
+        height: @scroller_center_height;
+        overflow: hidden;
+            padding: 5px;
     }
 </style>
 <script>
@@ -48,16 +58,19 @@
                 req_time:Date.now()
             }
         },
-        components: {
-            scroll: () => import('@/components/Public/Scroller/scroller.vue'),
-            UserWB:()=>import('@/components/User/User_wb.vue')
-        },
         methods: {
             scroll(e){
                 this.scrollTop = e.y
             },
             refresh() {
-                
+                  this.feed_list = [];
+                this.cur_page_id = 1;
+                this.noMore = false;
+                this.noData = false;
+                this.req_time = Date.now();
+                this.loadMore().then(r => {
+                    this.$refs.container.finishPullDown();
+                })
             },
             getTop(){
                 this.$refs.container.scroll.scrollTo(0, 0, 500)
