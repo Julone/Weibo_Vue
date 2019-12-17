@@ -7,6 +7,6 @@ import user from '../user'
 import error from '../shared/error'
 
 export default [ 
-    home,user,explore,profile,admin
+    home,user,explore,profile,admin,login
 ];
 export {login,error,home};

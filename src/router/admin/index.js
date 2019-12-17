@@ -8,32 +8,42 @@ export default {
     children: [
       {
         path:'',
-        redirect:{path:'weibo'}
+        redirect:{path:'report'}
       },
       {
         path: 'weibo',
-        component: () => import('@/views/Admin/Weibo/index.vue'),
-        children: [{
-            path: '',
-            component: () => import('@/views/Admin/Weibo/Weibo.vue')
-          },
-          {
-            path: 'reply',
-            component: () => import('@/views/Admin/Weibo/Reply.vue')
-          },
-        ]
+        component: () => import('@/views/Admin/Weibo/Weibo.vue'),
+        meta:{
+          title: 'Admin - 微博管理'
+        }
+      },
+      {
+        path: 'reply',
+        component: () => import('@/views/Admin/Weibo/Reply.vue'),
+        meta:{
+          title: 'Admin - 评论管理'
+        }
       },
       {
         path: 'report',
-        component: () => import('@/views/Admin/Report.vue')
+        component: () => import('@/views/Admin/Report.vue'),
+        meta:{
+          title: 'Admin - 举报管理'
+        }
       },
       {
         path: 'users',
-        component: () => import('@/views/Admin/Users.vue')
+        component: () => import('@/views/Admin/Users.vue'),
+        meta:{
+          title: 'Admin - 用户管理'
+        }
       },
       {
         path: 'topic',
-        component: () => import('@/views/Admin/Topic.vue')
+        component: () => import('@/views/Admin/Topic.vue'),
+        meta:{
+          title: 'Admin - 话题管理'
+        }
       }
     ]
   }]

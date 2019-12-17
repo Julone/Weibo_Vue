@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer">
+    <footer class="footer" :style="{'margin-bottom':bottom}">
         <div class="Links">
             <a target="_blank" rel="noopener noreferrer">专栏</a> ·
             <a target="_blank" rel="noopener noreferrer">圆桌</a> ·
@@ -31,6 +31,11 @@
         data(){
             return{
                 curYear:new Date().getFullYear()
+            }
+        },
+        props:{
+            bottom:{
+                default: '100px'
             }
         }
     }

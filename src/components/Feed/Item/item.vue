@@ -4,7 +4,7 @@
             <div class="left" >
                 <div class="user_icon">
                     <userIcon  class="pointer" :src="data.user_icon"
-                    @click.native="$router.push({name:'user_center',params:{user_id:data.user_id}})"
+                    @click.native="$router.push({name:'user_center',params:{user_id:data.user_id,user_name:data.user_name}})"
                     :size="50"/>
                     <span>{{data.user_name}}</span>
                 </div>
@@ -20,10 +20,10 @@
                 </div>
                 <feed-item-text :text="data.say_text"></feed-item-text>
                 <feed-item-img :data="data.say_img"></feed-item-img>
-                <feed-item-repost v-if="data.repost && !data.repost.delete"
-                 @click.native.stop="$router.push({name:'feed_detail',params:{id:data.repost.id}})"
-                  :data="data.repost" />
-                <el-divider v-if="data.repost && data.repost.delete">原微博已删除</el-divider>
+                <feed-item-repost v-if="data.repost && !data.repost.delete" :data="data.repost" />
+                <div class="repost_style"  v-if="data.repost && data.repost.delete"> 
+                <a-empty description="原微博已删除" />
+                </div>
                 <bottom :key="data.id" :data="bottomData" @repostOK='repostOK'></bottom>
             </div>
         </div>
@@ -44,7 +44,7 @@
         },
         methods:{
             repostOK(data){
-                this.$parent.feed_list.unshift(...data);
+                this.$parent.$parent.feed_list.unshift(...data);
             }
         },
         components:{
@@ -81,6 +81,15 @@
     }
 </script>
 <style lang="less" scoped>
+.repost_style{
+        margin: 10px auto;
+    max-width: 500px;
+    padding: 10px 15px 15px;
+    background: linear-gradient(120deg, #fbfbfb, #f6f6f6);
+    border-left: 3px solid #f2e0b0;
+    border-radius: 0 3px 3px 0;
+    width: 100%;
+}
     .card {
         width: 100%;
         margin: 20px auto;

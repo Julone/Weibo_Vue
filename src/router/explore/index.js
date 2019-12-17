@@ -1,3 +1,4 @@
+import {prefix} from './../index'
 export default {
     path:'/explore',
     component: ()=> import('@/views/Explore/ExploreContainer'),
@@ -9,7 +10,10 @@ export default {
         children:[
           {
             path:'',
-            component:()=>import('./../../views/Explore/Explore.vue')
+            component:()=>import('./../../views/Explore/Explore.vue'),
+            meta:{
+              title: prefix +'探索'
+            }
           },
           {
             path:'hot',

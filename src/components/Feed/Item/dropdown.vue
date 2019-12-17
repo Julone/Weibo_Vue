@@ -1,24 +1,29 @@
-<template lang="">
-    <div>
+<template>
+    <div class="dw">
         <el-dropdown :show-timeout='0' @visible-change='showDropdown = $event'>
             <el-link :underline='false'>
                 <i class="el-icon-arrow-down" :style="{transform:showDropdown?'rotate(180deg)':''}"></i>
             </el-link>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-if="data.auth.can_setTop"  @click.native="set_top(data.id)">
+                    <i class='iconfont1' v-html="topped?'&#xe711;':'&#xe712;'"></i>
                     <span>{{topped? '取消':''}}置顶</span>
                 </el-dropdown-item>
                 <el-dropdown-item v-if="data.auth.can_follow" @click.native="set_follow(data.user_id)">
+                    <i class="iconfont1" v-html="followed? '&#xe6e3;':'&#xe6e4;'"></i>
                     <span>{{ followed? '取消':''}}关注</span>
                 </el-dropdown-item>
-                <el-dropdown-item @click.native="$router.push({path:'/detail/' + data.id})">查看原微博
-                </el-dropdown-item>
                 <el-dropdown-item @click.native="addStar(data.id)">
+                    <i class="iconfont1" v-html="favored?'&#xe6f4;':'&#xe6f5;'" />
                     <span>{{ favored? '取消':''}}收藏</span>
                 </el-dropdown-item>
-                <el-dropdown-item v-show="data.auth.can_delete" @click.native="deleteItem(data.id)">删除
+                <el-dropdown-item v-show="data.auth.can_delete" @click.native="deleteItem(data.id)">
+                    <i class='iconfont1'>&#xe76f;</i>
+                    删除
                 </el-dropdown-item>
-                <el-dropdown-item @click.native="$store.dispatch('openReport',{say_id:data.id,to_user_id:data.user_id})">举报</el-dropdown-item>
+                <el-dropdown-item @click.native="$store.dispatch('openReport',{say_id:data.id,to_user_id:data.user_id})">
+                    <i class='iconfont1'>&#xe777;</i>
+                    举报</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
     </div>
@@ -26,7 +31,12 @@
 <style lang="less" scoped>
 .el-icon-arrow-down{
     transition: transform linear .3s;
-}   
+}
+/deep/.el-dropdown-menu__item{
+        display: flex;
+        align-items: center;
+}
+//
 </style>
 <script>
 import {del_feed,set_top,unset_top,set_favor,unset_favor} from '@/api/feed'

@@ -164,6 +164,7 @@ export default {
                 })
             },
             refresh(){
+                document.title = this.$route.query.q + '_搜索结果'
                 Promise.all([this.loadUser(),this.loadMore()]).then(r=>{
                                 console.log('oke');
                             })

@@ -1,3 +1,4 @@
+import {prefix} from  './../index'
 export default {
   path: '/',
   component: () => import('@/views/Home/HomeContainer.vue'),
@@ -11,11 +12,11 @@ export default {
     },
     {
     path: 'home',
-    name:'home',
     component: () => import('@/views/Home/HomeWrapper.vue'),
     children: [
       {
         path: '',
+        name:'home',
         components: {
           follow: () => import('@/views/Home/Follow.vue'),
           default: () => import('@/views/Home/Home.vue'),
@@ -25,7 +26,7 @@ export default {
         path: 'follow',
         name: 'home_follow',
         meta:{
-          title:'关注人'
+          title:prefix + '关注中心'
         },
         component: () => import('@/views/Home/Follow.vue')
       },
@@ -33,7 +34,7 @@ export default {
         path: 'favor',
         name: 'home_favor',
         meta:{
-          title:'收藏列表'
+          title:prefix + '收藏列表'
         },
         component: () => import('@/views/Home/Favor.vue')
       },
@@ -41,8 +42,9 @@ export default {
         path: 'hot',
         name: 'home_hot',
         meta:{
-          title:'最热微博'
+          title:prefix+'最热微博'
         },
+        alias:['/hot'],
         component: () => import('@/views/Home/Hot.vue')
       },
       {

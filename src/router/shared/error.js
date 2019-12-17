@@ -5,7 +5,7 @@ export default {
         {
             path:'',
             name:'error',
-            component:()=>import('@/views/Error/Error.vue')
+            component:()=>import('@/views/Error/Error.vue'),
         },
        
     ]

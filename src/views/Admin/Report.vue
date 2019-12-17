@@ -1,13 +1,12 @@
 <template>
     <div class="cont">
-        {{multipleSelection}}
         <el-table border :row-class-name="tableRowClassName" class="needScroll"
          height="500" :data="tableData" stripe  @selection-change="handleSelectionChange">
                 <el-table-column
       type="selection"
       width="40">
     </el-table-column>
-            <el-table-column label="举报ID" fixed="left" width="100">
+            <el-table-column label="ID" fixed="left" width="50">
                 <template slot-scope="scope">
                     <div align='center'>
                         {{scope.row.id}}
@@ -22,9 +21,9 @@
             </el-table-column>
             
             
-            <el-table-column label="举报理由" prop="report_type" width="150">
+            <el-table-column label="举报理由" prop="report_type" show-overflow-tooltip  width="100">
             </el-table-column>
-            <el-table-column label="举报理由" prop="report_reason" show-overflow-tooltip width="200">
+            <el-table-column label="举报理由" prop="report_reason" show-overflow-tooltip width="100">
             </el-table-column>
 
             <el-table-column label="微博文本" prop="say_origin_text" show-overflow-tooltip width="300">
@@ -37,7 +36,7 @@
                             @click.native="showImg(scope.row.say_img)">
                             {{scope.row.say_img.length}}
                         </el-link>
-
+                        <span v-else>没有图片</span>
                         <i class="el-icon-close" v-else></i>
                     </div>
                 </template>
@@ -73,13 +72,13 @@
                     </el-button>
                     <el-button v-else @click="recreply(scope.row)" type="success" size="small">恢复微博
                     </el-button>
-                    <el-button type="warning" size="small">账号操作</el-button>
+                    <el-button type="warning" size="small" @click="admin_show_user_dialog(scope.row.user_id)">账号操作</el-button>
                 </template>
             </el-table-column>
         </el-table>
         <div class="pagination">
-            <div >
-                <el-button @click="handled">
+            <div style="position:absolute;left:0;bottom:0">
+                <el-button @click="handled" :type="multipleSelection.length?'primary':''">
                     处理完毕
                 </el-button>
             </div>
@@ -106,57 +105,14 @@
                 <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
+           <div class="search">
+            <el-input placeholder="请输入关键词" v-model="q" class="input-with-select" @keyup.enter.native='search'>
+                <el-button slot="append" icon="el-icon-search" @click="search" ></el-button>
+            </el-input>
+        </div>
     </div>
 </template>
-<style lang="less" scoped>
-    .cont{
-        height: calc(100vh - 120px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
 
-    }
-    .pagination{
-        flex:none;
-        height: 50px;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        .flex();
-        justify-content: space-between;
-    }
-
-    /deep/.el-table {
-
-        .el-table__body-wrapper,
-        .el-table__header-wrapper {
-            font-size: 12px;
-        }
-
-        .deleted-row {
-            // color: red;
-
-            position: relative;
-            // text-decoration: line-through;
-        }
-        i{
-            font-size: 18px;
-            // color: green;
-            &.el-icon-close{
-                         color: #aaa;
-    // background: red;
-    border-radius: 19px;
-            }
-            &.checked{
-                 color: white;
-    background: #1a69ce;
-    border-radius: 19px;
-            }
-        }
-
-    }
-</style>
 <script>
     import {
         report_get,
@@ -236,3 +192,4 @@
 
     }
 </script>
+<style src="./style.less" lang="less" scoped></style>

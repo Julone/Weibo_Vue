@@ -1,0 +1,62 @@
+.search {
+    position: absolute;
+    top: -50px;
+    right: 0;
+}
+
+.cont {
+    height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: space-around;
+
+}
+
+.pagination {
+    flex: none;
+    height: 50px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    .flex();
+    justify-content: flex-end;
+    position: relative;
+}
+
+/deep/.el-table {
+
+    .el-table__body-wrapper,
+    .el-table__header-wrapper {
+        font-size: 12px;
+    }
+
+    .deleted-row {
+        // color: red;
+        // background: red;
+
+        position: relative;
+        // text-decoration: line-through;
+    }
+
+    i {
+        font-size: 18px;
+
+        // color: green;
+        &.el-icon-close {
+            // color: #aaa;
+            color:transparent;
+            // background: red;
+            border-radius: 19px;
+        }
+
+        &.checked {
+            //  color: white;
+            color: #e95e5f;
+            // background: #1a69ce;
+            border-radius: 19px;
+        }
+    }
+
+}

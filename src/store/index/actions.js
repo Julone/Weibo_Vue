@@ -1,5 +1,5 @@
 import {get_user_menu} from '@/api/user'
-import router from '@/router';
+import router,{createRouter} from '@/router';
 import allRoutes, {error,login,home} from '@/router/shared/routes.js';
 export default {
     computeWindow({state,commit,dispatch}){
@@ -15,14 +15,14 @@ export default {
             var part = allRoutes.filter(el=>{
                 return userRoutes.some(element => element.module == el.module);
             })
-            return [...part,login,error];
+            return [...part,error];
         })
         .catch(e=>{
             return [home,login,error];
         })
         .then(routes=>{
-            console.log(routes);
-            router.addRoutes(routes)
+            router.matcher = createRouter().matcher;
+            router.addRoutes(routes);
         })
     },
     appInit({dispatch}){

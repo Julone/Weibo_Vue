@@ -15,7 +15,8 @@
                 <!-- enter-active-class="animated bounceInRight" move-class='adc' leave-active-class="animated bounceOutRight" -->
                 <transition-group tag="div" name="flip-list-noEnter">
                     <!-- <div > -->
-                        <feedItem @remove='remove' :data="el" :showTop='showTop' v-for="(el,index) in cur_list"   :key="el.id"></feedItem> 
+                        <feedItem @remove='remove' v-bind:data.sync="el" :showTop='showTop'
+                         v-for="(el,index) in cur_list" :key="el.id"></feedItem> 
                     <!-- </div> -->
                 </transition-group>
             </div>

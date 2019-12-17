@@ -28,8 +28,8 @@
                             @click.native="showImg(scope.row.say_img)">
                             {{scope.row.say_img.length}}
                         </el-link>
-
-                        <i class="el-icon-close" v-else></i>
+                        <span v-else>没有图片</span>
+                        <!-- <i class="el-icon-close" v-else></i> -->
                     </div>
                 </template>
             </el-table-column>
@@ -91,67 +91,22 @@
                 <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
+           <div class="search">
+            <el-input placeholder="请输入关键词" v-model="q" class="input-with-select" @keyup.enter.native='search'>
+                <el-button slot="append" icon="el-icon-search" @click="search" ></el-button>
+            </el-input>
+        </div>
     </div>
 </template>
-<style lang="less" scoped>
-    .cont{
-        height: calc(100vh - 120px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-
-    }
-    .pagination{
-        flex:none;
-        height: 50px;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        .flex();
-        justify-content: flex-end;
-    }
-
-    /deep/.el-table {
-
-        .el-table__body-wrapper,
-        .el-table__header-wrapper {
-            font-size: 12px;
-        }
-
-        .deleted-row {
-            // color: red;
-
-            position: relative;
-            // text-decoration: line-through;
-        }
-        i{
-            font-size: 18px;
-            // color: green;
-            &.el-icon-close{
-                         color: #aaa;
-    // background: red;
-    border-radius: 19px;
-            }
-            &.checked{
-                 color: white;
-    background: red;
-    border-radius: 19px;
-            }
-        }
-
-    }
-</style>
 <script>
     import {
         weibo_get,
         weibo_del,
         weibo_rec
-    } from './api'
+    } from './../api'
     import mixins from './../mixins.js'
     export default {
         data() {
-            console.log(this.$route);
             return {
                 tableData: [],
                 dialogVisible: false,
@@ -166,8 +121,6 @@
             '$route':'getData'
         },
         methods: {
-        
-            
             delWeibo({id}){
                 weibo_del({say_id:id}).then(r=>{
                     r.data.code ==200 && this.$message.success(r.data.msg);
@@ -189,7 +142,8 @@
             getData(){
                 return weibo_get({
                     page_id:this.page_id,
-                    page_count:this.page_count
+                    page_count:this.page_count,
+                    q:this.q
                 }).then(r => {
                     this.tableData = r.data.data.map(el=>{
                         el.say_img = this.parseImg(el.say_img);
@@ -206,3 +160,4 @@
 
     }
 </script>
+<style  src="./../style.less" lang="less" scoped></style>

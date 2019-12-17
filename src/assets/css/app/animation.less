@@ -35,7 +35,12 @@
     animation-fill-mode: forwards;
     animation-delay: (@i * 0.1s);
   }
-
+  .fadeBottom@{i} {
+    opacity: 0;
+    animation: fadeBottom 1s ease 1;
+    animation-fill-mode: forwards;
+    animation-delay: (@i * 0.1s);
+  }
   .fadeTop_column(@n, (@i + 1));
 }
 
@@ -68,24 +73,24 @@
 }
 @keyframes fadeTop {
   from {
-    transform: translate(0, -3rem) scale(0);
+    transform: translate(0, -3rem) ;
     opacity: 0;
   }
 
   to {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) ;
     opacity: 1;
   }
 }
 
 @keyframes fadeBottom {
   from {
-    transform: translate(0, 3rem) scale(0.8);
+    transform: translate(0, 3rem) ;
     opacity: 0;
   }
 
   to {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) ;
     opacity: 1;
   }
 }

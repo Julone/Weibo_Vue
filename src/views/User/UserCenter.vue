@@ -89,6 +89,12 @@
                 })
             }
         },
+        created(){
+            var t = this.$route.params.user_name;
+            if(t){
+                document.title = t + "的用户主页";
+            }
+        },
         mounted() {
            this.getUserData();
            this.loadMore();

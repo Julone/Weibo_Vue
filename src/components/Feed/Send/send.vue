@@ -10,9 +10,12 @@
                     :title="'图片上传 ' + say_img.length + ' / 9'" width="300" trigger="click"
                     @show="iconToggle('picture',1)"  @hide="iconToggle('picture',0)" transition="fast_fade">
                     <div class="imgWrapper">
-                        <el-upload :class="{hide:hideUpload}" multiple accept="image/*" action="/api/upload/img" :headers="header"
-                            list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove"
-                            :limit="9" :on-error="handleErr" :on-exceed='handleExceed' :on-change="handleChange" ref="upload">
+                        <el-upload :class="{hide:hideUpload}" multiple accept="image/*"
+                             action="/api/upload/img" :headers="header"
+                            list-type="picture-card" :on-preview="handlePictureCardPreview"
+                             :on-remove="handleRemove" :limit="9" :on-error="handleErr"
+                              :on-exceed='handleExceed' :on-change="handleChange"
+                               ref="upload" >
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <el-dialog top='35vh' :visible.sync="dialogVisible" append-to-body>
@@ -92,6 +95,7 @@
         at: ['&#xe6e4;', '&#xe6e3;'],
         topic: ['&#xe720;', '&#xe71f;']
     };
+    import {setStorage, getStorage} from '@/utils/storage.js'
     export default {
         data() {
             return {
@@ -111,7 +115,7 @@
                 },
                 text_length: 0,
                 textMaxShowTip:false,
-                hideUpload:false
+                hideUpload:false,
             }
         },
         computed: {
@@ -124,14 +128,18 @@
                 this.textMaxShowTip = val 
             }
         },
+        mounted(){
+            this.$refs.editText.innerHTML = getStorage({name: 'say_text',type:'session'}) || '';
+            this.refreshText();
+        },
         methods: {
-            editInput() {
+            editInput(val) {
+                setStorage({name:'say_text',type:'session',content:val.target.innerHTML});
                 this.refreshText();
             },
             iconToggle(el, status) {
                 this['icon_' + el] = iconArr[el][status];
             },
-          
             querySearchAsync(q, cb) {
                 get_users({
                     user_name: q
@@ -229,7 +237,6 @@
                     this.say_text = this.say_text.slice(0, this.say_text.length - 1)
                 }
             },
-
             addFace(e) {
                 this.$nextTick(() => {
                     var text = document.querySelector('#editText');
@@ -257,6 +264,7 @@
                 var data = this.beforeSend();
                 if (data) {
                     send_feed(data).then(result => {
+                        setStorage({name:'say_text',type:'session',content:''});
                         this.$emit('sendOK', result.data.data);
                     })
                 }
@@ -270,7 +278,7 @@
                 this.hideUpload = fileList.length >= 9;
                 if (el.status == "success"){
                      this.getImg(fileList);
-                }  
+                }
             },
             handleExceed(f,fl){
                 this.$message.error('请不要超出9张图片')
@@ -282,6 +290,7 @@
                         if(index < 9 )
                             return img
                     }
+                    
                 })
             },
             handleRemove(f, fileList) {

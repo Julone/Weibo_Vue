@@ -1,3 +1,4 @@
+import { prefix } from './../index'
 export default {
     path:'/profile',
     component: ()=> import('@/views/User/UserContainer'),
@@ -10,7 +11,10 @@ export default {
           {
             path:'',
             name:'profile',
-            component:()=>import('@/views/User/UserProfile')
+            component:()=>import('@/views/User/UserProfile'),
+            meta:{
+              title: prefix + '用户资料'
+            }
           }
         ]
     }]

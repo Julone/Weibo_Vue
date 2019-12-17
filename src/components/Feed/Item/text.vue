@@ -5,7 +5,7 @@
             <a  @click="trans">{{tword}}</a>
 
             <div slot="reference" class="usertext" ref="text" v-html='t_text'
-                :style="{maxHeight: seeall?'unset':'72px'}"></div>
+                :style="{maxHeight: seeall?'unset':'80px'}"></div>
         </el-popover>
         <div class="translate usertext" v-if='translatedWord' v-html="translatedWord"></div>
         <div class="text-tool">
@@ -18,7 +18,7 @@
         word-wrap: break-word;
         text-align: justify;
         line-height: 26px;
-        max-height: 78px;
+        max-height: 80px;
         overflow: hidden;
         padding-left: 5px;
 

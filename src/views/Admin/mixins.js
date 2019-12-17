@@ -4,11 +4,16 @@ export default {
         return {
             page_id:Number(this.$route.query.page_id) || 1,
             page_count:Number(this.$route.query.page_count) || 10,
-            page_total: 0
+            page_total: 0,
+            q: this.$route.query.q || ''
         }
     },
     methods: {
         ...mapActions(['admin_show_user_dialog']),
+        search(){
+            this.$route.query.q = this.q;
+            this.getData();
+        },
         handleSizeChange(val){
             this.page_count = val;
             this.jump();
@@ -18,7 +23,7 @@ export default {
             this.jump();
         },
         jump(){
-             this.$router.push({path:this.$route.path,query:{
+            this.$router.push({path:this.$route.path,query:{
                     page_id:this.page_id,
                     page_count:this.page_count
                 }

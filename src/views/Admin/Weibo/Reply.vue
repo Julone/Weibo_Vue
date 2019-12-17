@@ -82,63 +82,22 @@
                 <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
+        <div class="search">
+            <el-input placeholder="请输入关键词" v-model="q" class="input-with-select" @keyup.enter.native='search'>
+                <el-button slot="append" icon="el-icon-search" @click="search" ></el-button>
+            </el-input>
+        </div>
+     
+
     </div>
 </template>
-<style lang="less" scoped>
-    .cont{
-        height: calc(100vh - 120px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
 
-    }
-    .pagination{
-        flex:none;
-        height: 50px;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        .flex();
-        justify-content: flex-end;
-    }
-
-    /deep/.el-table {
-
-        .el-table__body-wrapper,
-        .el-table__header-wrapper {
-            font-size: 12px;
-        }
-
-        .deleted-row {
-            // color: red;
-
-            position: relative;
-            // text-decoration: line-through;
-        }
-        i{
-            font-size: 18px;
-            // color: green;
-            &.el-icon-close{
-                         color: #aaa;
-    // background: red;
-    border-radius: 19px;
-            }
-            &.checked{
-                 color: white;
-    background: #1a69ce;
-    border-radius: 19px;
-            }
-        }
-
-    }
-</style>
 <script>
     import {
         reply_get,
         reply_del,
         reply_rec
-    } from './api'
+    } from './../api'
     import mixins from './../mixins'
     export default {
         data() {
@@ -177,7 +136,8 @@
             getData(){
                 return reply_get({
                     page_id:this.page_id,
-                    page_count:this.page_count
+                    page_count:this.page_count,
+                    q:this.q
                 }).then(r => {
                     this.tableData = r.data.data.map(el=>{
                         el.say_img = this.parseImg(el.say_img);
@@ -185,10 +145,11 @@
                     });
                     this.page_total = r.data.page_total;
                 })
-            }
+            },
         },
         created() {
             this.getData();
         }
     }
 </script>
+<style  src="./../style.less" lang="less" scoped></style>
