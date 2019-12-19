@@ -1,6 +1,6 @@
 <template>
     <el-avatar :size="size" circle>
-        <el-image :src="truesrc" @error="jj">
+        <el-image :src="truesrc">
             <div slot="error" class="image-slot" style="display:flex;align-items:center;">
                 <img src="/img/default_user.jpg" width="100%" alt="">
             </div>
