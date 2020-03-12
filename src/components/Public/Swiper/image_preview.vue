@@ -5,7 +5,7 @@
             <swiper-slide class="slide" v-for="(item, i) in image_arr" :key="i">
                 <div class="swiper-zoom-container" data-swiper-zoom="3" @click="exit">
                     <div>
-                        <img @click.stop style="width:800px;height:auto;" :src="'/api/uploads/' + item.path"
+                        <img @click.stop style="max-width:800px;max-height:500px;height:auto;" :src="'/api/uploads/' + item.path"
                             :alt="item.path">
                     </div>
                 </div>

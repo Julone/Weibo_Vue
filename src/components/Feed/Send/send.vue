@@ -258,6 +258,7 @@
                 this.$refs.editText.innerHTML = '';
                 this.say_text = '';
                 this.say_img = [];
+                this.refreshText();
                 return a;
             },
             send() {

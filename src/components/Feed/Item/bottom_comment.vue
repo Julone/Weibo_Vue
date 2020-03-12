@@ -1,15 +1,15 @@
 <template>
     <div>
         
-        <transition-group v-if="isAjax" name="reply_list" tag='ul' mode="out-in">
+        <transition-group v-if="isAjax" tag='ul' mode="out-in">
             <el-card :body-style="{padding:'10px'}" shadow="hover" class="card"
-             v-for="el in (reply_count<=3 ? reply_count:3)" :key="el" >
+             v-for="el in (3 * cur_page >reply_count? reply_count % 3 : 3)" :key="el" >
                 <a-skeleton active avatar :paragraph='{rows:1}'
                  :title='{width: rand[el] + 200}'>
                 </a-skeleton>
             </el-card>
         </transition-group>
-        <transition-group name="reply_list" tag='ul' mode="out-in">
+        <transition-group  v-if="comments.length" name="reply_list" tag='ul' mode="out-in">
             <li v-for="(el,index) in comments" :key="el.id">
                 <el-dropdown :show-timeout='0' placement="top-end" trigger="hover" @visible-change="el.showDropdown = $event">
                     <el-dropdown-menu slot="dropdown">
@@ -172,6 +172,7 @@
             },
             getComment() {
                 this.isAjax =true;
+                this.comments = [];
                 return get_comment({
                     say_id: this.say_id,
                     page_id: this.cur_page,

@@ -47,7 +47,7 @@
         text-align: center;
         font-size: 12px;
         color: gray;
-        width: 300px;
+        width: 320px;
         line-height: 22px;
 
         a {

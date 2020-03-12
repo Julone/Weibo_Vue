@@ -1,6 +1,5 @@
 <template>
     <div class="text_wrapper">
-
         <el-popover :disabled="translated" placement="top" width="120" trigger="click">
             <a  @click="trans">{{tword}}</a>
 
@@ -8,8 +7,8 @@
                 :style="{maxHeight: seeall?'unset':'80px'}"></div>
         </el-popover>
         <div class="translate usertext" v-if='translatedWord' v-html="translatedWord"></div>
-        <div class="text-tool">
-            <a v-if='cansee' @click="seeall = !seeall"> {{seeall ? '收起' : '阅读全部'}}</a>
+        <div class="text-tool" v-if='cansee'>
+            <a  @click="seeall = !seeall"> {{seeall ? '收起' : '阅读全部'}}</a>
         </div>
     </div>
 </template>
@@ -108,7 +107,7 @@
         },
         mounted() {
             var a = this.$refs.text.offsetHeight;
-            if (a >= 70) {
+            if (a >= 80) {
                 this.cansee = true;
             }
         }

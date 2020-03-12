@@ -22,7 +22,6 @@
                         </div>
                 </div>
                 </el-scrollbar>
-            
         </div>
         <p v-if="feed_list.length">相关微博</p>
         <feedList label='没有相关内容' :noFooter="true" :feed_list="feed_list" :noData="noData" :noMore="noMore"/>

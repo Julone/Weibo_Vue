@@ -4,6 +4,7 @@ import {
     delStorage
 } from './../../utils/storage'
 import router from './../../router/index'
+import myToast from './../../global/MyElementUI/Message'
 import {
     Encrypt
 } from './../../utils/Aes'
@@ -20,14 +21,13 @@ export default {
     },
     actions: {
         reportFeed({ commit, state, dispatch }, { report_type, report_reason } = {}) {
-            // console.log(sendReport);
             sendReport({
                 say_id: state.say_id,
                 to_user_id:state.to_user_id,
                 report_type,
                 report_reason
             }).then(r=>{
-                // console.log(r);
+                r.data.code === 200 && myToast.success(r.data.msg);
                 dispatch('closeReport');
             })
         },

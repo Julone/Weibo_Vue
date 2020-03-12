@@ -2,11 +2,8 @@
     <div>
         <router-view></router-view>
 
-        <el-dialog title="提示" :visible.sync="show_user_dialog" width="600px">
+        <el-dialog title="账号管理" :visible.sync="show_user_dialog" width="600px">
             <el-form ref="form" :model="user_data" label-width="80px" style="padding:10px">
-                <el-form-item label="唯一账号">
-                    {{user_id}}
-                </el-form-item>
                 <el-form-item label="账号名称">
                     {{user_data.user_name}}
                 </el-form-item>

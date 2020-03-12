@@ -96,8 +96,9 @@
         },
         mounted() {
            this.getUserData();
-           window.scrollBy(0,100)
-           console.log(this.$route);
+           document.body.style.overflow = "auto"
+        //    window.scrollBy(0,100)
+        //    console.log(this.$route);
         }
     }
 </script>

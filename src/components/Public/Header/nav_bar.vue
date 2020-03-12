@@ -6,7 +6,7 @@
                 <div class="logo">
                     <img src="./../../../assets/img/logo-text-color.svg" height="100%" alt="">
                 </div>
-                <ul>
+                <ul id="router-list" >
                     <router-link class="link pointer" 
                     v-show="!Number(el.hide)"
                      v-for="(el) in userMenu" tag="li"
@@ -14,6 +14,7 @@
                         <i :class="el.icon"></i> {{ el.label }}
                     </router-link>
                 </ul>
+                <div class="underline" ref="un"></div>
             </div>
             <div class="right">
                 <searchBar></searchBar>
@@ -48,9 +49,7 @@
                 'userMenu': state => state.userMenu
             })
         },
-    
         methods: {
-       
             goMyPage() {
                 this.$router.push('/user/' + this.user_id)
             },
@@ -71,8 +70,7 @@
                     this.$store.dispatch('logout')
                 })
             }
-        },
-        mounted() {}
+        }
     }
 </script>
 <style lang="less" scoped>
@@ -82,8 +80,9 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        background: #ffffffbd;
+        background: #ffffff7a;
         border-bottom: 1px solid #eee;
+        backdrop-filter: saturate(180%) blur(20px);
         box-shadow: 0 20px 40px -20px rgba(0, 26, 100, .2);
 
         .wrapper {
@@ -107,7 +106,7 @@
                     height: 100%;
                     margin-right: 20px
                 }
-
+ 
                 ul {
                     display: flex;
                     height: 100%;
@@ -120,18 +119,33 @@
                         display: flex;
                         align-items: center;
                         // display: block;
+                        white-space: nowrap;
                         // float: left;
                         padding: 0 15px;
                         flex-wrap: nowrap;
                         transition: all ease .4s;
+                        position: relative;
                         &:hover {
                             color: #e0a612;
 
                         }
 
+
                         &.active,&.router-link-active {
                             color: #e0a612;
                             background:rgb(255,242,220);
+                            &::after{
+                                content: '';
+                                    width: 100%;
+                    height: 3px;
+                    position: absolute;
+                    left: 0;
+                    bottom: -3px;
+                    border-radius: 10px;
+                    background: #e0a612;
+                    transition: all ease 1s;
+                            }
+                          
                         }
                     }
 
